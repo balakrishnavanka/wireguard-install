@@ -708,7 +708,7 @@ WantedBy=multi-user.target" >> /etc/systemd/system/wg-iptables.service
 		systemctl enable --now wg-quick@wg0.service >/dev/null 2>&1
 	)
 	echo
-	qrencode -t UTF8 < "$export_dir$client".conf -o $export_dir$client".png
+	qrencode -t UTF8 < "$export_dir$client".conf -o "$export_dir$client".png
 	echo -e '\xE2\x86\x91 That is a QR code containing the client configuration.'
 	echo
 	# If the kernel module didn't load, system probably had an outdated kernel
@@ -763,7 +763,7 @@ else
 			# Append new client configuration to the WireGuard interface
 			wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
 			echo
-			qrencode -t UTF8 < "$export_dir$client".conf -o $export_dir$client".png
+			qrencode -t UTF8 < "$export_dir$client".conf -o "$export_dir$client".png
 			echo -e '\xE2\x86\x91 That is a QR code containing the client configuration.'
 			echo
 			echo "$client added. Configuration available in: $export_dir$client.conf"
