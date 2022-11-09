@@ -693,13 +693,13 @@ WantedBy=multi-user.target" >> /etc/systemd/system/wg-iptables.service
 		)
 	fi
 	# Generates the custom client.conf
-	client = Desktop
+	client=Desktop
 	new_client_setup
-	client = Laptop
+	client=Laptop
 	new_client_setup
-	client = Tablet
+	client=Tablet
 	new_client_setup
-	client = Phone
+	client=Phone
 	new_client_setup
 
 	# Enable and start the wg-quick service
