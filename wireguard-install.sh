@@ -424,6 +424,10 @@ EOF
 		chown "$SUDO_USER:$SUDO_USER" "$export_dir$client".conf
 	fi
 	chmod 600 "$export_dir$client".conf
+	echo
+	qrencode < "$export_dir$client".conf -o "$export_dir$client".png
+	echo -e '\xE2\x86\x91 QR code containing the client configuration saved in' $export_dir'.'
+	echo
 }
 
 update_sysctl() {
@@ -707,10 +711,10 @@ WantedBy=multi-user.target" >> /etc/systemd/system/wg-iptables.service
 		set -x
 		systemctl enable --now wg-quick@wg0.service >/dev/null 2>&1
 	)
-	echo
-	qrencode < "$export_dir$client".conf -o "$export_dir$client".png
-	echo -e '\xE2\x86\x91 QR code containing the client configuration saved in' $export_dir'.'
-	echo
+	# echo
+	# qrencode < "$export_dir$client".conf -o "$export_dir$client".png
+	# echo -e '\xE2\x86\x91 QR code containing the client configuration saved in' $export_dir'.'
+	# echo
 	# If the kernel module didn't load, system probably had an outdated kernel
 	# We'll try to help, but will not force a kernel upgrade upon the user
 	if ! modprobe -nq wireguard; then
@@ -762,10 +766,10 @@ else
 			new_client_setup
 			# Append new client configuration to the WireGuard interface
 			wg addconf wg0 <(sed -n "/^# BEGIN_PEER $client/,/^# END_PEER $client/p" /etc/wireguard/wg0.conf)
-			echo
-			qrencode < "$export_dir$client".conf -o "$export_dir$client".png
-			echo -e '\xE2\x86\x91 QR code containing the client configuration saved in' $export_dir'.'
-			echo
+			# echo
+			# qrencode < "$export_dir$client".conf -o "$export_dir$client".png
+			# echo -e '\xE2\x86\x91 QR code containing the client configuration saved in' $export_dir'.'
+			# echo
 			echo "$client added. Configuration available in: $export_dir$client.conf"
 			exit
 		;;
